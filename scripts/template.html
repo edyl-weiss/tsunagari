@@ -1,4 +1,4 @@
-<title>Six Degrees: Anime × Games × Movies</title>
+<title>Tsunagatteru</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Knewave&family=Comic+Neue:wght@400;700&family=Rampart+One&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
@@ -63,6 +63,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,label:focus-within
 .hdr .logo{display:flex;align-items:center;gap:14px;padding:10px 14px;min-width:0}
 .hdr h1{white-space:nowrap;font-family:var(--brush);font-weight:400;font-size:clamp(30px,7.4vw,46px);line-height:1;letter-spacing:.01em;margin:0;transform:rotate(-2deg);text-shadow:-2px -1px 0 var(--c),2px 2px 0 var(--m),5px 4px 0 var(--y)}
 .hdr .jp{writing-mode:vertical-rl;font-family:var(--jp);font-size:17px;line-height:1;white-space:nowrap}
+.hdr .jpname{font-family:var(--jp);font-size:clamp(18px,4vw,24px);line-height:1.1;margin-top:10px;letter-spacing:.12em}
+.hdr .jpname + .tag{margin-top:4px}
 .hdr .tag{margin-top:8px;font-family:var(--letter);font-weight:700;font-size:13px;text-transform:uppercase;color:var(--grey);line-height:1.2}
 .hdr .btns{display:flex;flex-direction:column;border-left:3px solid var(--ink)}
 .hdr .btns button{flex:1;border:0;padding:6px 16px 2px;font-family:var(--sfx);font-size:17px;letter-spacing:.03em}
@@ -119,7 +121,7 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
 .row .link{flex-wrap:wrap}
 .meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 
-/* degree frames */
+/* hop counter */
 .frames{display:flex;align-items:center;gap:14px;padding:8px 12px;flex-wrap:wrap;border-bottom:3px solid var(--ink)}
 .pips{display:flex;gap:4px}
 .pip{width:30px;height:26px;border:2px solid var(--ink);font-family:var(--sfx);font-size:14px;padding-top:3px;display:grid;place-items:center}
@@ -245,7 +247,12 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
   .form > div:nth-child(4){border-right:0}
   .form > div:nth-child(n+2):nth-child(-n+4){border-bottom:1px solid var(--blue)}
   .form > div:nth-child(5){grid-column:1/-1}
-  .hdr h1{font-size:36px}
+  .hdr{grid-template-columns:1fr}
+  .hdr h1{font-size:clamp(20px,7vw,40px);letter-spacing:0}
+  .hdr .logo{gap:8px;padding:10px 10px}
+  .hdr .btns{flex-direction:row;border-left:0;border-top:3px solid var(--ink)}
+  .hdr .btns button{padding:8px 16px 4px}
+  .hdr .btns button + button{border-top:0;border-left:3px solid var(--ink)}
   .versus{grid-template-columns:1fr;min-height:0}
   .end{min-height:112px}
   .end.a{clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),0 100%)}
@@ -361,7 +368,7 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
   <span class="reg t" aria-hidden="true"></span><span class="reg b" aria-hidden="true"></span>
   <span class="tombo tl"></span><span class="tombo tr"></span><span class="tombo bl"></span><span class="tombo br"></span>
   <div class="form" aria-label="Sheet details">
-    <div><span class="print">作品名 Title</span><span class="v">Six Degrees</span></div>
+    <div><span class="print">作品名 Title</span><span class="v">Tsunagatteru</span></div>
     <div><span class="print">No.</span><span class="v" id="fNo">#001</span></div>
     <div><span class="print">日付 Date</span><span class="v" id="fDate"></span></div>
     <div><span class="print">Rank</span><span class="v" id="diffLbl"></span></div>
@@ -371,8 +378,8 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
   <div class="frame">
     <header class="panel hdr">
       <div class="logo">
-        <span class="jp">六次の隔たり</span>
-        <div><h1>SIX DEGREES!</h1><div class="tag">Anime × games × movies · link them in six</div></div>
+        <span class="jp">繋がってる</span>
+        <div><h1>TSUNAGATTERU!</h1><div class="jpname" lang="ja">つながってる</div><div class="tag">Anime × games × movies · connect them all</div></div>
       </div>
       <div class="btns">
         <button id="btnHelp" aria-label="How to play">Rules</button>
@@ -413,8 +420,8 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
 
       <div class="panel">
         <div class="frames">
-          <div class="pips" id="pips" aria-label="Degrees used"></div>
-          <span class="note">Degrees <b id="degLbl">0</b>/6 · Par <b id="parNum">5</b></span>
+          <div class="pips" id="pips" aria-label="Hops used"></div>
+          <span class="note">Hops <b id="degLbl">0</b>/6 · Par <b id="parNum">5</b></span>
           <span class="note combo" id="comboLbl"></span>
         </div>
         <section id="chain" class="comic" aria-live="polite"></section>
@@ -510,7 +517,7 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
   <div class="dlg" role="dialog" aria-labelledby="helpTitle">
     <div class="dlg-hd"><h2 id="helpTitle">How to play</h2><button data-close>Close</button></div>
     <div class="dlg-bd">
-    <p><b>Connect the two titles in six degrees or fewer.</b> Each hop needs the two titles to share <b>at least 2 traits</b>.</p>
+    <p><b>Connect the two titles in six hops or fewer.</b> Each hop needs the two titles to share <b>at least 2 traits</b>.</p>
     <ul>
       <li><b>Plan with the target's traits.</b> They're always on show. On your cards, any trait the target also has glows.</li>
       <li><b>Pick from a hand of 8 cards.</b> Each shows what it shares with where you are. Reshuffle once per hop, or tap one of the current title's traits to deal only cards with that trait. You can still search every connection.</li>
@@ -522,7 +529,7 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
     <div class="types"><div>Mechanic</div><div>Theme</div><div>Setting</div><div>Trope</div><div>Icon</div><div>Story type</div></div>
     <p><b>Detective:</b> a mystery title reveals one trait at a time, vaguest first. Guess it in as few clues as possible. Wrong guesses tell you how many traits they share with the answer.</p>
     <p><b>Bridge:</b> five 30-second rounds. Pick the one card that shares 2 traits with both titles. Faster answers score more.</p>
-    <p><b>Scoring:</b> 1000 base, +150 for par (+250 under par), +100 for 3+ kinds of trait, +100 for crossing media, +50 for all three media, +50 per combo, +50 for 3+ franchises. −75 per degree over par. Lifelines cost 75, 150 and 100.</p>
+    <p><b>Scoring:</b> 1000 base, +150 for par (+250 under par), +100 for 3+ kinds of trait, +100 for crossing media, +50 for all three media, +50 per combo, +50 for 3+ franchises. −75 per hop over par. Lifelines cost 75, 150 and 100.</p>
     <p>New Daily and Detective puzzles arrive at midnight your time. Daily difficulty rotates through the week, par 3 to 6.</p>
     <p class="small">Traits come from community tags, movie keywords and 58 keyword connectors that scan game store descriptions and movie plot summaries for shared ideas like time loops, heists, haunted houses and deals with the devil.</p>
     <p class="small">Anime data: manami-project anime-offline-database (ODbL). Game data: Steam community tags via the Game Gauntlets catalog. Movies: the IMDb Top 1000 list (Kaggle dataset) with TMDB keywords.</p>
@@ -640,7 +647,7 @@ function fresh(){ return {path:[puzzle.start],misses:0,done:false,gaveUp:false,s
   life:{}, peeks:DIFF[puzzle.difficulty].peeks===Infinity?-1:DIFF[puzzle.difficulty].peeks, peekAt:-1, shuffleAt:-1, shuffles:0, filter:null, stone:null, radar:null, bridgeTrait:null, combos:0, kinds:[]}; }
 const stateKey=()=>"sd9:"+puzzle.puzzle_id;
 function persist(){ if(mode==="daily") save(stateKey(),S); }
-const cur=()=>S.path[S.path.length-1], degrees=()=>S.path.length-1;
+const cur=()=>S.path[S.path.length-1], hopsUsed=()=>S.path.length-1;
 
 // distances from the target (so cards can show hot / cold)
 function computeDist(target, done){
@@ -713,7 +720,7 @@ function render(){
   $("parNum").textContent=puzzle.par; $("diffLbl").textContent=DIFF[puzzle.difficulty].label+" · "+puzzle.par;
   $("fNo").textContent=mode==="daily"?"#"+String(dayNum(puzzle.seed)).padStart(3,"0"):"PRACTICE";
   $("fDate").textContent=(mode==="daily"?puzzle.seed:todayStr()).replace(/-/g,".");
-  const deg=degrees(); $("degLbl").textContent=deg;
+  const deg=hopsUsed(); $("degLbl").textContent=deg;
   $("pips").innerHTML=Array.from({length:MAX_DEG},(_,i)=>`<span class="pip${i<deg?" on":""}${i===puzzle.par-1?" par":""}">${i+1}</span>`).join("");
   $("comboLbl").textContent=S.combos?`COMBO ×${S.combos}`:"";
   renderStrip();
@@ -739,8 +746,8 @@ function renderStrip(){
   $("chain").innerHTML=h;
 }
 function renderPicker(){
-  const memory=$("hardMode").checked, left=MAX_DEG-degrees(), c=cur();
-  if(left<=0){ $("pickerQ").innerHTML="Out of degrees! Undo a hop."; $("hand").innerHTML=""; $("search").hidden=true; $("list").innerHTML=""; return; }
+  const memory=$("hardMode").checked, left=MAX_DEG-hopsUsed(), c=cur();
+  if(left<=0){ $("pickerQ").innerHTML="Out of hops! Undo one."; $("hand").innerHTML=""; $("search").hidden=true; $("list").innerHTML=""; return; }
   $("search").hidden=false;
   const tgt=TSET[puzzle.target];
   $("traitsNow").innerHTML=`<span class="lbl">Here: its traits</span><span class="tchips">${TT[c][3].map(r=>traitChip(r,(tgt.has(r)?"tgt":"")+(S.filter===r?" on":""))).join("")}</span>`;
@@ -814,13 +821,13 @@ function renderLifeNotes(){
 function profile(path){ const cats=new Set(); for(let i=1;i<path.length;i++) shared(path[i-1],path[i]).forEach(r=>cats.add(TC[r]));
   const m=new Set(path.map(mediaOf)); return {typeCount:cats.size,cross:m.size>1,all3:m.size>2,frCount:new Set(path.map(i=>TT[i][5])).size}; }
 function scoreOf(){
-  const L=degrees(), sh=puzzle.shortest, f=profile(S.path), rows=[["Base",1000]];
+  const L=hopsUsed(), sh=puzzle.shortest, f=profile(S.path), rows=[["Base",1000]];
   if(L===sh) rows.push(["Shortest route",150]); if(L<sh) rows.push(["Beat the par route!",250]);
   if(f.typeCount>=3) rows.push([`${f.typeCount} kinds of trait`,100]);
   if(f.cross) rows.push(["Crossed between media",100]); if(f.all3) rows.push(["Anime, game and movie in one strip",50]);
   if(f.frCount>=3) rows.push([`${f.frCount} franchises`,50]);
   if(S.combos) rows.push([`${S.combos} combo${S.combos>1?"s":""}`,50*S.combos]);
-  if(L>sh) rows.push([`${L-sh} degree${L-sh>1?"s":""} over par`,-75*(L-sh)]);
+  if(L>sh) rows.push([`${L-sh} hop${L-sh>1?"s":""} over par`,-75*(L-sh)]);
   for(const k of Object.keys(LIFE)) if(S.life[k]) rows.push([LIFE[k].label,-LIFE[k].cost]);
   return {rows,total:Math.max(0,rows.reduce((a,r)=>a+r[1],0))};
 }
@@ -831,24 +838,24 @@ function finish(gaveUp){
     if(st.last!==ds){ st.played++; if(!gaveUp){ const y=new Date(Date.parse(ds+"T12:00:00Z")-864e5).toISOString().slice(0,10);
       st.streak=st.lastSolved===y?st.streak+1:1; st.lastSolved=ds; st.solved++; st.best=Math.max(st.best,S.score); st.maxStreak=Math.max(st.maxStreak||0,st.streak); } else st.streak=0;
       st.last=ds; save("sd6:stats",st); } }
-  render(); if(!gaveUp){ burst(degrees()<=puzzle.par?"完璧!":"CLEAR!"); SND.win(); }
+  render(); if(!gaveUp){ burst(hopsUsed()<=puzzle.par?"完璧!":"CLEAR!"); SND.win(); }
 }
 function routeList(path){ return `<ol>${path.map((id,j)=>`<li><i>${j===0?"S":String(j).padStart(2,"0")}</i><div>${j>0?`<span class="r">${shared(path[j-1],id).slice(0,4).map(r=>traitChip(r)).join(" ")}</span>`:""}<b>${esc(label(id))}</b></div></li>`).join("")}</ol>`; }
 function renderResult(){
   const c=puzzle.canon, again=mode==="practice"?`<button class="btn" data-act="new">New practice puzzle</button>`:`<button class="btn" data-act="practice">Play practice</button>`;
-  if(S.gaveUp){ $("resultArea").innerHTML=`<div class="result panel"><h2>THE ROUTE…</h2><div class="sub">${DIFF[puzzle.difficulty].label} · shortest is ${puzzle.shortest} degrees</div><div class="route"><h3 class="lbl">ONE SHORTEST ROUTE</h3>${routeList(c)}</div><div class="actions">${again.replace('class="btn"','class="btn primary"')}<button class="btn" data-act="detective">Try Detective</button></div></div>`; return; }
-  const sc=scoreOf(), L=degrees(), same=S.path.length===c.length&&S.path.every((id,i)=>id===c[i]);
+  if(S.gaveUp){ $("resultArea").innerHTML=`<div class="result panel"><h2>THE ROUTE…</h2><div class="sub">${DIFF[puzzle.difficulty].label} · shortest is ${puzzle.shortest} hops</div><div class="route"><h3 class="lbl">ONE SHORTEST ROUTE</h3>${routeList(c)}</div><div class="actions">${again.replace('class="btn"','class="btn primary"')}<button class="btn" data-act="detective">Try Detective</button></div></div>`; return; }
+  const sc=scoreOf(), L=hopsUsed(), same=S.path.length===c.length&&S.path.every((id,i)=>id===c[i]);
   $("resultArea").innerHTML=`<div class="result panel"><div class="stamp" aria-hidden="true"><b>${L<puzzle.par?"優":"完"}</b><span>${L<puzzle.par?"UNDER":"CLEAR"}</span></div><span class="onoma" aria-hidden="true">ドン</span><h2>${L<puzzle.par?"UNDER PAR!!":L===puzzle.par?"AT PAR!!":"CONNECTED!"}</h2>
-    <div class="big">${sc.total}<small>PTS</small></div><div class="sub">${L} degree${L>1?"s":""} · par ${puzzle.par} · ${fmtTime(S.elapsed)}${S.memory?" · from memory":""}</div>
+    <div class="big">${sc.total}<small>PTS</small></div><div class="sub">${L} hop${L>1?"s":""} · par ${puzzle.par} · ${fmtTime(S.elapsed)}${S.memory?" · from memory":""}</div>
     <table class="breakdown">${sc.rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]>0&&r[0]!=="Base"?"+":""}${r[1]}</td></tr>`).join("")}<tr><td><b>Total</b></td><td><b>${sc.total}</b></td></tr></table>
     <p class="small">Your comic strip is above. Copy the result to share it.</p>
     <div class="route">${same?`<h3 class="lbl">SHORTEST ROUTE</h3><p class="small">You found it.</p>`:`<h3 class="lbl">ONE SHORTEST ROUTE</h3>${routeList(c)}`}</div>
     <div class="actions"><button class="btn primary" data-act="share">Copy result</button>${again}<button class="btn" data-act="detective">Try Detective</button></div></div>`;
 }
-function shareText(){ const L=degrees(); const t=mode==="daily"?`6° Anime × Games × Movies #${dayNum(todayStr())}`:`6° Anime × Games × Movies (practice, ${DIFF[puzzle.difficulty].label})`;
+function shareText(){ const L=hopsUsed(); const t=mode==="daily"?`Tsunagatteru #${dayNum(todayStr())}`:`Tsunagatteru (practice, ${DIFF[puzzle.difficulty].label})`;
   const strip=S.path.slice(1).map((id,j)=>CAT_EMOJI[hopKind(S.path[j],id)]).join(" ");
   const media=S.path.map(i=>["🟪","🟩","🟨"][mediaOf(i)]).join("");
-  return `${t}\n${label(puzzle.start)} → ${label(puzzle.target)}\n${media}\n${strip}${S.combos?` · ${S.combos}× combo`:""}\n${L} degrees (par ${puzzle.par}) · ${S.score} pts`; }
+  return `${t}\n${label(puzzle.start)} → ${label(puzzle.target)}\n${media}\n${strip}${S.combos?` · ${S.combos}× combo`:""}\n${L} hops (par ${puzzle.par}) · ${S.score} pts`; }
 function startTimer(){ clearInterval(tick); if(mode!=="daily"&&mode!=="practice") return;
   const upd=()=>{const s=S.done?S.elapsed:Math.round((Date.now()-S.startedAt)/1000); $("timer").textContent=fmtTime(s); if(!S.done) S.elapsed=s;};
   upd(); if(!S.done) tick=setInterval(()=>{upd(); if(S.elapsed%5===0) persist();},1000); }
@@ -977,13 +984,13 @@ $("dReveal").addEventListener("click",()=>{ if(D.shown<D.order.length){ D.shown+
 $("dGiveUp").addEventListener("click",()=>{ D.done=true; D.win=false; dPersist(); renderDetective(); });
 $("dResult").addEventListener("click",e=>{ const a=e.target.closest("[data-dact]"); if(!a) return;
   if(a.dataset.dact==="new") startDetective(true); if(a.dataset.dact==="route") startDaily();
-  if(a.dataset.dact==="share") copy(`6° Detective${D.daily?" #"+dayNum(todayStr()):""}\n${"🔎".repeat(D.shown)}${"❌".repeat(D.guesses.length)}✅\n${D.score} pts`); });
+  if(a.dataset.dact==="share") copy(`Tsunagatteru Detective${D.daily?" #"+dayNum(todayStr()):""}\n${"🔎".repeat(D.shown)}${"❌".repeat(D.guesses.length)}✅\n${D.score} pts`); });
 // events: bridge
 $("bHand").addEventListener("click",e=>{const b=e.target.closest(".card"); if(b&&!b.disabled) bPick(+b.dataset.bid);});
 $("bNext").addEventListener("click",()=>{ $("bMsg").className="msg"; nextBridge(); });
 $("bRestart").addEventListener("click",()=>startBridge(true));
 $("bResult").addEventListener("click",e=>{ const a=e.target.closest("[data-bact]"); if(!a) return; if(a.dataset.bact==="again") startBridge(true);
-  if(a.dataset.bact==="share") copy(`6° Bridge\n${B.log.map(x=>x?"🌉":"💥").join("")}\n${B.score} pts`); });
+  if(a.dataset.bact==="share") copy(`Tsunagatteru Bridge\n${B.log.map(x=>x?"🌉":"💥").join("")}\n${B.score} pts`); });
 // events: shell
 $("modeDaily").addEventListener("click",()=>{ $("resultArea").innerHTML=""; startDaily(); });
 $("modePractice").addEventListener("click",()=>{ $("resultArea").innerHTML=""; startPractice(); });

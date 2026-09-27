@@ -1,5 +1,5 @@
-"""Build the large Six Degrees graph.
-Rule: two titles are one degree apart when they share at least TWO traits."""
+"""Build the large Tsunagatteru graph.
+Rule: two titles are one hop apart when they share at least TWO traits."""
 import json, re, collections, sys
 import numpy as np
 from scipy import sparse
@@ -255,7 +255,7 @@ popk = sorted(range(len(keep)), key=lambda j: titles[keep[j]]['pop'])[:1500]
 D = shortest_path(Ek, unweighted=True, directed=False, indices=popk[:300])
 vals = D[:, popk].ravel()
 c = collections.Counter(int(v) if np.isfinite(v) else -1 for v in vals)
-print('popular-pair degrees', sorted(c.items()), file=sys.stderr)
+print('popular-pair hops', sorted(c.items()), file=sys.stderr)
 out = dict(titles=[{**titles[i], 'traits': titles[i]['traits']} for i in keep],
            cats={tr: CATS.get(tr, 'trope') for tr in tl}, need=NEED, cap=CAP)
 json.dump(out, open('../build/final_graph.json', 'w'), ensure_ascii=False)

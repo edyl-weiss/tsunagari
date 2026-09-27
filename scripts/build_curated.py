@@ -1,6 +1,6 @@
-"""Six Degrees: Anime x Games — expanded trait graph (v3).
-One title per franchise. Traits are narrow (2-4 titles) so shortest routes run 3-6 degrees.
-A degree = one hop from a title to another title through one shared trait."""
+"""Tsunagatteru: Anime x Games — expanded trait graph (v3).
+One title per franchise. Traits are narrow (2-4 titles) so shortest routes run 3-6 hops.
+A hop = one step from a title to another title through one shared trait."""
 import json, collections, itertools, sys
 
 W = []
@@ -450,7 +450,7 @@ T["stage"][3]["kon"]="Ho-kago Tea Time"
 t("club","After-school club","setting",["school club","club activities"],
   {"kon":"The Light Music Club","haikyu":"Karasuno's volleyball club"})
 
-# Tags left off on purpose: each one created a shortcut that collapsed most routes to 3 degrees or less.
+# Tags left off on purpose: each one created a shortcut that collapsed most routes to 3 hops or less.
 for wid, tid in [("minecraft","sunlight"),("acnh","farm"),("spirited","masks"),("haikyu","tournament"),
                  ("oshinoko","stage"),("eva","anxiety"),("fortnite","elimination")]:
     del T[tid][3][wid]
@@ -483,7 +483,7 @@ for a, b in itertools.combinations(works, 2):
     dd = bfs(a).get(b); dist[None if dd is None else dd // 2] += 1
 traits = [n for n in nodes.values() if n["t"] == "trait"]
 print(len(works), "titles", len(traits), "traits", len(rels), "links")
-print("degree distribution", sorted(dist.items(), key=lambda x: (x[0] is None, x[0] or 0)))
+print("hop distribution", sorted(dist.items(), key=lambda x: (x[0] is None, x[0] or 0)))
 print("titles per trait", sorted(collections.Counter(len(v[3]) for v in T.values()).items()))
 print("traits per title", sorted(collections.Counter(len(adj[w]) for w in works).items()))
 print("under 2 traits:", low)

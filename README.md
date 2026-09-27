@@ -1,6 +1,6 @@
-# Six Degrees: Anime × Games × Movies
+# Tsunagatteru (つながってる)
 
-A daily puzzle in the style of a manga manuscript page. Connect two titles, drawn from 18,211 anime, video games and movies, in six hops or fewer. Each hop needs the two titles to share **at least two traits** (mechanics, themes, settings, tropes, icons or story types).
+"Tsunagatteru" is Japanese for "they're connected". It's a daily puzzle in the style of a manga manuscript page. Connect two titles, drawn from 18,211 anime, video games and movies, in six hops or fewer. Each hop needs the two titles to share **at least two traits** (mechanics, themes, settings, tropes, icons or story types).
 
 ## Play
 
@@ -45,7 +45,7 @@ scripts/                the build pipeline
   connectors.py         56 cross-media traits and the keyword connectors (tags, movie keywords, regexes over store text and plot summaries) that detect them
   build_curated.py      builds data/curated_graph.json from the hand-written traits
   build_final.py        merges everything into one graph (2-shared-trait links)
-  puzzles2.py           finds 3–6 degree puzzles between popular titles
+  puzzles2.py           finds 3–6 hop puzzles between popular titles
   pack.py               writes data/pack.json
   make_page.py          injects the data into template.html and writes index.html
   template.html         page template (HTML, CSS, game logic)

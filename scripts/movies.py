@@ -1,4 +1,4 @@
-"""IMDb Top 1000 movies -> Six Degrees titles.
+"""IMDb Top 1000 movies -> Tsunagatteru titles.
 Traits come from three places:
   1. TMDB keywords (matched by title + year) mapped onto the shared vocabulary, plus
      keywords that recur across the list as movie traits of their own;
