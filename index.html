@@ -369,6 +369,125 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
 .card.right{border-color:var(--ink);background:linear-gradient(var(--y-wash),var(--y-wash)),var(--paper);box-shadow:5px 5px 0 var(--m)}
 .card.wrong{opacity:.45;text-decoration:line-through}
 @media (max-width:560px){ .hand{grid-template-columns:1fr 1fr} .card .cname{font-size:13px} .comic{grid-template-columns:1fr 1fr} .streak{border-left:0} }
+
+/* ---------- v3 layout: goal → move → record ---------- */
+.track{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;padding:0}
+.tend{padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tend .name{font-family:var(--letter);font-weight:700;font-size:21px;line-height:1.1;text-transform:uppercase;text-wrap:balance;overflow-wrap:anywhere}
+.tstart{background:linear-gradient(var(--c-wash),var(--c-wash)) 6px 5px/100% 100% no-repeat,var(--paper)}
+.ttarget{border-left:3px solid var(--ink);background:repeating-conic-gradient(from 0deg at 80% 40%,transparent 0 3deg,rgba(236,0,140,.16) 3deg 3.8deg),linear-gradient(var(--m-wash),var(--m-wash)) 6px 5px/100% 100% no-repeat,var(--paper)}
+.ttraits{display:flex;flex-direction:column;gap:4px;margin-top:2px}
+.ttraits .small{background:none;padding:0}
+.tmid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:10px 12px;border-left:3px solid var(--ink);min-width:150px}
+.tmid .pips{display:flex;gap:3px}
+.tarrow{font-family:var(--brush);font-size:34px;line-height:.8;color:var(--m)}
+.move{position:relative;border-color:var(--ink);box-shadow:7px 7px 0 var(--m)}
+.movehd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-2px 0 10px}
+.movetag{font-family:var(--sfx);font-size:16px;letter-spacing:.06em;background:var(--ink);color:var(--paper);padding:4px 10px 1px}
+.coach{flex:1;min-width:200px;font-weight:700;font-size:15px;line-height:1.3;display:flex;align-items:center;gap:8px}
+.coach::before{content:"➜";font-size:20px;color:var(--m);animation:nudge 1.1s ease-in-out infinite}
+.coach b{background:var(--y);padding:0 3px}
+@keyframes nudge{50%{transform:translateX(5px)}}
+.move.fresh{background:linear-gradient(var(--y-wash),var(--y-wash)) 7px 6px/100% 100% no-repeat,var(--paper)}
+.move.fresh .hand .card{animation:ring 1.6s ease-in-out 3}
+@keyframes ring{0%,100%{box-shadow:0 0 0 0 rgba(236,0,140,0)}50%{box-shadow:0 0 0 5px rgba(236,0,140,.55)}}
+.pulse{animation:ring 1.2s ease-in-out infinite}
+.move .balloon{min-height:52px;padding:10px 14%;margin-bottom:14px}
+.card .play{margin-top:auto;align-self:flex-end;font-family:var(--sfx);font-size:13px;letter-spacing:.05em;border:2px solid var(--ink);padding:2px 8px 0;background:var(--paper)}
+.card:hover:not([disabled]) .play,.card:focus-visible .play{background:var(--ink);color:var(--paper)}
+.card.target .play{background:var(--m);color:var(--paper);border-color:var(--m)}
+.card.target{animation:ring 1s ease-in-out infinite}
+.card .temp{margin-top:0}
+.searchbox{margin-top:4px}
+.searchbox>summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none;display:inline-block;border-bottom:2px dashed var(--ink);margin-bottom:8px}
+.searchbox>summary::-webkit-details-marker{display:none}
+.searchbox[open]>summary{margin-bottom:8px}
+.helpbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:0 4px}
+.helpbar .grow{flex:1}
+.helplbl{font-family:var(--sfx);font-size:14px;letter-spacing:.04em;margin-left:8px}
+.helpbar .btn{border-width:2px;background:transparent}
+.helpbar .quiet{border-style:dashed}
+.striphd{display:flex;align-items:baseline;gap:10px;padding:10px 12px 0}
+.settings{position:relative}
+.settings>summary{cursor:pointer;list-style:none;font-weight:700;font-size:15px;text-transform:uppercase;padding:0 14px;border-left:3px solid var(--ink);height:100%;display:flex;align-items:center}
+.settings>summary::-webkit-details-marker{display:none}
+.settings>summary::after{content:" ▾";margin-left:4px}
+.settings-pop{position:absolute;right:0;top:calc(100% + 6px);z-index:20;background:var(--paper);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:10px;display:flex;flex-direction:column;gap:10px;min-width:250px}
+.settings-pop .toggle{border-left:0;padding:0;flex-wrap:wrap}
+.settings-pop .toggle .small{flex-basis:100%;text-transform:none;font-weight:400;padding-left:26px}
+.coachbar{font-weight:700;font-size:15px;padding:8px 12px;border:2.5px solid var(--ink);background:linear-gradient(var(--y-wash),var(--y-wash)),var(--paper);display:flex;gap:8px;align-items:center}
+.coachbar::before{content:"➜";color:var(--m);font-size:18px}
+.tab[aria-pressed="true"]{position:relative}
+.tour{position:fixed;inset:0;z-index:40;background:rgba(17,17,17,.45);display:grid;place-items:center;padding:16px}
+.tour[hidden]{display:none}
+.tourcard{background:var(--paper);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--m);max-width:440px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.tourcard ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.35}
+.tourcard .btn{align-self:flex-start}
+@media (max-width:640px){
+  .track{grid-template-columns:1fr}
+  .tmid{border-left:0;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);flex-direction:row;flex-wrap:wrap;min-width:0}
+  .tarrow{transform:rotate(90deg);font-size:26px}
+  .ttarget{border-left:0}
+  .move .balloon{padding:10px 8%}
+  .helplbl{flex-basis:100%;margin:4px 0 0}
+  .settings-pop{right:auto;left:0}
+}
+@media (prefers-reduced-motion:reduce){.coach::before,.move.fresh .hand .card,.pulse,.card.target{animation:none}}
+
+/* button labels sit 2px lower */
+.hdr .btns button{padding:8px 16px 0}
+.tab{padding:11px 16px 3px}
+.btn{padding:11px 16px 3px}
+.small-btn{padding:8px 12px 1px}
+.opt{padding:11px 12px 7px}
+.dlg-hd button{padding:5px 16px 0}
+.filterlbl button{padding:2px 6px 0}
+.card .play{padding:4px 8px 0}
+.settings>summary{padding:4px 14px 0}
+@media (max-width:560px){ .hdr .btns button{padding:10px 16px 2px} }
+
+/* tab strip: one clean row of modes, cog on the right */
+.page{max-width:760px}
+.strip{display:grid;grid-template-columns:repeat(4,auto) 1fr auto;align-items:stretch}
+.strip .grow{display:none}
+.strip .tab{font-size:15px;padding:11px 13px 3px;white-space:nowrap}
+.strip .streak{grid-column:5;justify-self:end;border-left:0}
+.strip .settings{grid-column:6;grid-row:1}
+.practicebar{grid-column:1/-1;display:none;border-top:3px solid var(--ink);align-items:stretch}
+.practicebar:has(>:not([hidden])){display:flex}
+.practicebar select{min-height:38px}
+.settings>summary{padding:0 12px;border-left:3px solid var(--ink)}
+.settings>summary::after{content:none}
+.settings>summary svg{display:block}
+.settings>summary:hover,.settings[open]>summary{background:var(--y)}
+@media (max-width:720px){
+  .strip{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}
+  .strip .settings{grid-column:3;grid-row:1/span 2}
+  .strip .settings>summary{height:100%}
+  .strip .tab{text-align:center;padding:11px 8px 3px;min-width:0}
+  #modeDaily,#modePractice{border-bottom:3px solid var(--ink)}
+  #modePractice,#modeBridge{border-right:3px solid var(--ink)}
+  .strip .streak{grid-column:1/-1;justify-self:stretch;justify-content:center;border-top:3px solid var(--ink);padding:6px}
+  .settings>summary{border-left:0}
+  .settings-pop{right:0;left:auto}
+}
+@media (max-width:460px){
+  .strip .tab{font-size:13px;letter-spacing:0;padding:10px 4px 2px;white-space:normal}
+  .strip .settings>summary{padding:0 9px}
+}
+
+.cpanel{min-width:0}
+.cpanel.goal .cname{width:fit-content}
+@media (max-width:560px){ .comic{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} }
+
+.card{min-width:0}
+.card .tchip,.cpanel .tchip{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.hand{grid-template-columns:repeat(auto-fill,minmax(min(210px,100%),1fr))}
+@media (max-width:560px){ .hand{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} }
+
+.track{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+.tchip{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+@media (max-width:640px){ .track{grid-template-columns:minmax(0,1fr)} }
 </style>
 
 
@@ -398,8 +517,9 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
     <div class="panel strip">
       <button class="tab" id="modeDaily" aria-pressed="true">Daily</button>
       <button class="tab" id="modePractice" aria-pressed="false">Practice</button>
-      <button class="tab" id="modeDetective" aria-pressed="false">Detective</button>
-      <button class="tab" id="modeBridge" aria-pressed="false">Bridge</button>
+      <button class="tab" id="modeDetective" aria-pressed="false">Detective Mode</button>
+      <button class="tab" id="modeBridge" aria-pressed="false">Bridge Mode</button>
+<div class="practicebar">
       <select id="diffSel" aria-label="Practice difficulty" hidden>
         <option value="easy">Easy · par 3</option>
         <option value="medium">Medium · par 4</option>
@@ -407,39 +527,53 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
         <option value="expert">Expert · par 6</option>
       </select>
       <button class="tab" id="btnNew" hidden>New</button>
+      </div>
       <span class="grow"></span>
       <span class="streak" id="streakPill" title="Daily streak"></span>
-      <label class="toggle" id="memWrap"><input type="checkbox" id="hardMode"> From memory</label>
-      <label class="toggle"><input type="checkbox" id="soundOn" checked> Sound</label>
+      <details class="settings" id="settings">
+        <summary aria-label="Settings" title="Settings"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" d="M10.3 2.5h3.4l.5 2.6 1.9.8 2.2-1.5 2.4 2.4-1.5 2.2.8 1.9 2.6.5v3.4l-2.6.5-.8 1.9 1.5 2.2-2.4 2.4-2.2-1.5-1.9.8-.5 2.6h-3.4l-.5-2.6-1.9-.8-2.2 1.5-2.4-2.4 1.5-2.2-.8-1.9-2.6-.5v-3.4l2.6-.5.8-1.9-1.5-2.2 2.4-2.4 2.2 1.5 1.9-.8z"/><circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></summary>
+        <div class="settings-pop">
+          <label class="toggle" id="memWrap"><input type="checkbox" id="hardMode"> From memory <span class="small">hide the cards, type titles yourself</span></label>
+          <label class="toggle"><input type="checkbox" id="soundOn" checked> Sound effects</label>
+          <button class="btn small-btn" id="btnTour">Show the quick tour</button>
+        </div>
+      </details>
     </div>
 
     <!-- ================= ROUTE GAME (Daily / Practice) ================= -->
     <div id="routeView" class="view">
-      <section class="versus" aria-label="Puzzle endpoints">
-        <div class="end a"><div class="in"><span class="lbl">START<i>起点</i></span><span class="name" id="startName"></span><div class="meta" id="startMeta"></div></div></div>
-        <div class="end b"><div class="in"><span class="lbl">TARGET<i>終点</i></span><span class="name" id="targetName"></span><div class="meta" id="targetMeta"></div></div></div>
-      </section>
-
-      <div class="panel tpanel">
-        <span class="lbl">TARGET'S TRAITS</span>
-        <span class="tchips" id="targetTraits"></span>
-        <span class="small">Glowing traits on a card are ones the target has too.</span>
-      </div>
-
-      <div class="panel">
-        <div class="frames">
+      <!-- 1. the goal: start -> target, with progress between -->
+      <section class="track panel" aria-label="Your goal">
+        <div class="tend tstart">
+          <span class="lbl">START<i>起点</i></span>
+          <span class="name" id="startName"></span>
+          <div class="meta" id="startMeta"></div>
+        </div>
+        <div class="tmid">
           <div class="pips" id="pips" aria-label="Hops used"></div>
           <span class="note">Hops <b id="degLbl">0</b>/6 · Par <b id="parNum">5</b></span>
           <span class="note combo" id="comboLbl"></span>
+          <span class="tarrow" aria-hidden="true">→</span>
         </div>
-        <section id="chain" class="comic" aria-live="polite"></section>
-      </div>
+        <div class="tend ttarget">
+          <span class="lbl">TARGET<i>終点</i></span>
+          <span class="name" id="targetName"></span>
+          <div class="meta" id="targetMeta"></div>
+          <div class="ttraits"><span class="tchips" id="targetTraits"></span></div>
+        </div>
+      </section>
 
+      <!-- 2. the one thing to do: pick a card -->
       <section id="playArea" class="stack">
-        <div class="panel picker" id="picker">
+        <div class="panel picker move" id="picker">
+          <div class="movehd">
+            <span class="movetag">YOUR MOVE</span>
+            <span class="coach" id="coach" aria-live="polite"></span>
+          </div>
           <div class="traitsnow" id="traitsNow"></div>
           <div class="balloon"><span id="pickerQ"></span><svg class="tail" viewBox="0 0 30 22" aria-hidden="true"><polygon points="1,-8 27,-8 25,-2 6,20 3,-2" fill="#F5EEDC"/><polyline points="3,-3 6,20 25,-3" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="miter"/></svg></div>
           <div class="msg" id="msg"></div>
+          <div class="hand" id="hand"></div>
           <div class="handbar" id="handbar">
             <button class="btn small-btn" id="btnShuffle">Reshuffle</button>
             <button class="btn small-btn" id="btnPeek">Peek temps</button>
@@ -447,17 +581,20 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
             <span class="grow"></span>
             <span class="mapstate" id="mapState">Reading the map…</span>
           </div>
-          <div class="hand" id="hand"></div>
-          <input id="search" type="text" autocomplete="off" spellcheck="false" placeholder="Search every connection">
-          <div class="list" id="list" role="listbox"></div>
+          <details class="searchbox" id="searchBox">
+            <summary>Not in your hand? Search every connection</summary>
+            <input id="search" type="text" autocomplete="off" spellcheck="false" placeholder="Search every connection">
+            <div class="list" id="list" role="listbox"></div>
+          </details>
         </div>
-        <div class="actions">
-          <button class="btn" id="btnUndo">Undo</button>
-          <button class="btn life" id="lifeRadar">Radar<span class="cost">−75</span></button>
-          <button class="btn life" id="lifeStone">Stepping stone<span class="cost">−150</span></button>
-          <button class="btn life" id="lifeBridge">Bridge trait<span class="cost">−100</span></button>
+        <div class="helpbar">
+          <button class="btn small-btn" id="btnUndo">↶ Undo</button>
+          <span class="helplbl">Stuck?</span>
+          <button class="btn small-btn life" id="lifeRadar">Radar<span class="cost">−75</span></button>
+          <button class="btn small-btn life" id="lifeStone">Stepping stone<span class="cost">−150</span></button>
+          <button class="btn small-btn life" id="lifeBridge">Bridge trait<span class="cost">−100</span></button>
           <span class="grow"></span>
-          <button class="btn" id="btnGiveUp">Show answer</button>
+          <button class="btn small-btn quiet" id="btnGiveUp">Show answer</button>
         </div>
         <div class="confirm" id="confirmGiveUp" hidden>
           <span>Reveal the route and end this puzzle?</span>
@@ -467,10 +604,30 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
       </section>
       <div class="hints" id="hints"></div>
       <section id="resultArea"></section>
+
+      <!-- 3. the record: your route as a comic strip -->
+      <div class="panel">
+        <div class="striphd"><span class="lbl">YOUR STRIP</span><span class="small">Every hop becomes a panel.</span></div>
+        <section id="chain" class="comic" aria-live="polite"></section>
+      </div>
+    </div>
+
+    <!-- quick tour (first visit) -->
+    <div class="tour" id="tour" hidden>
+      <div class="tourcard">
+        <span class="lbl">HOW TO PLAY · 3 STEPS</span>
+        <ol>
+          <li><b>Look at the target.</b> Its traits are listed under it. Those are what you're aiming for.</li>
+          <li><b>Pick a card.</b> Every card shares 2 traits with where you are. Traits that glow yellow also belong to the target.</li>
+          <li><b>Keep hopping</b> until the target card turns up in your hand, then play it. Six hops max.</li>
+        </ol>
+        <button class="btn primary" id="tourGo">Let's go!</button>
+      </div>
     </div>
 
     <!-- ================= TRAIT DETECTIVE ================= -->
     <div id="detectiveView" class="view" hidden>
+      <div class="coachbar">Read the clues, then type your guess below. Need more? Tap <b>Next clue</b>.</div>
       <div class="panel casefile">
         <div class="casehd"><span class="lbl">CASE FILE <i>事件簿</i></span><span class="note" id="dCaseNo"></span></div>
         <div class="mystery" id="dMystery">? ? ?</div>
@@ -494,6 +651,7 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
 
     <!-- ================= BRIDGE ================= -->
     <div id="bridgeView" class="view" hidden>
+      <div class="coachbar">Pick the one card that links <b>both</b> titles before the timer runs out.</div>
       <div class="panel bridgehd">
         <span class="lbl">ROUND <b id="bRound">1</b>/5</span>
         <div class="timebar"><i id="bTimeFill"></i></div>
@@ -646,10 +804,18 @@ let mode="daily", puzzle=null, S=null, tick=null, DIST=null, distFor=-1;
 function makeDaily(ds){
   let d=dailyDiff(ds); if(!(DATA.p[d]||[]).length) d="easy";
   let k=0; for(let t=Date.parse(LAUNCH+"T12:00:00Z"),end=Date.parse(ds+"T12:00:00Z");t<end;t+=864e5){ if(dailyDiff(new Date(t).toISOString().slice(0,10))===d) k++; }
-  const pool=(d==="hard"||d==="expert")?DATA.p[d]:shuffled(DATA.p[d],"bigpool-"+d); let p=pool[k%pool.length].slice();
-  if(rng("dir-"+ds)()<.5) p.reverse(); return buildPuzzle(p,d,ds);
+  const pool=(d==="hard"||d==="expert")?playable(d):shuffled(playable(d),"bigpool-"+d); let p=pool[k%pool.length].slice();
+  if(d!=="hard"&&d!=="expert"&&rng("dir-"+ds)()<.5) p.reverse(); return buildPuzzle(p,d,ds);
 }
-function makePractice(seed,diff){ const list=DATA.p[diff],R=rng(seed); let p=list[Math.floor(R()*list.length)].slice(); if(R()<.5) p.reverse(); return buildPuzzle(p,diff,seed); }
+// endpoints need enough traits and links that the first hand is a real choice
+const PLAY={}; function playable(d){ if(PLAY[d]) return PLAY[d];
+  const long=d==="hard"||d==="expert", deg=i=>nb(i).length;
+  if(!long){ const ok=i=>TT[i][3].length>=4&&deg(i)>=6; const l=DATA.p[d].filter(p=>ok(p[0])&&ok(p[p.length-1])); return PLAY[d]=l.length>=10?l:DATA.p[d]; }
+  // long routes need an obscure end: put it at the TARGET (its traits are on show) and start from the better-connected end
+  const o=DATA.p[d].map(p=>deg(p[0])>=deg(p[p.length-1])?p:p.slice().reverse());
+  for(const min of [6,4,2]){ const l=o.filter(p=>deg(p[0])>=min); if(l.length>=10) return PLAY[d]=l; }
+  return PLAY[d]=o; }
+function makePractice(seed,diff){ const list=playable(diff),R=rng(seed); let p=list[Math.floor(R()*list.length)].slice(); if(R()<.5&&diff!=="hard"&&diff!=="expert") p.reverse(); return buildPuzzle(p,diff,seed); }
 function buildPuzzle(p,diff,seed){ return {puzzle_id:"v2-"+seed+"-"+diff,seed,difficulty:diff,start:p[0],target:p[p.length-1],par:p.length-1,shortest:p.length-1,canon:p}; }
 function fresh(){ return {path:[puzzle.start],misses:0,done:false,gaveUp:false,startedAt:Date.now(),elapsed:0,memory:$("hardMode").checked,score:null,
   life:{}, peeks:DIFF[puzzle.difficulty].peeks===Infinity?-1:DIFF[puzzle.difficulty].peeks, peekAt:-1, shuffleAt:-1, shuffles:0, filter:null, stone:null, radar:null, bridgeTrait:null, combos:0, kinds:[]}; }
@@ -701,13 +867,13 @@ function cardHTML(j){
   let flag=""; if(j===puzzle.target) flag=`<span class="flag">TARGET!</span>`; else if(S.stone&&S.stone.at===S.path.length&&S.stone.id===j) flag=`<span class="flag stone">STEPPING STONE</span>`;
   let temp=""; if(tempsVisible()&&j!==puzzle.target){ const t=tempOf(j); if(t) temp=`<span class="temp ${t}"><i></i><i></i><i></i>${t==="hot"?"HOT · closer":t==="warm"?"WARM · same distance":"COLD · further"}</span>`; }
   const tgtNote=glowToTarget&&j!==puzzle.target?`<span class="small">${glowToTarget} trait${glowToTarget>1?"s":""} in common with the target</span>`:"";
-  return `<button class="card${j===puzzle.target?" target":""}" data-id="${j}">${flag}<span class="cname">${esc(label(j))}</span>${chipFor(j)}<span class="tchips">${chips}</span>${tgtNote}${temp}</button>`;
+  return `<button class="card${j===puzzle.target?" target":""}" data-id="${j}">${flag}<span class="cname">${esc(label(j))}</span>${chipFor(j)}<span class="tchips">${chips}</span>${tgtNote}${temp}<span class="play">${j===puzzle.target?"Finish ▸":"Play ▸"}</span></button>`;
 }
 function renderHand(){
   const memory=$("hardMode").checked;
   $("hand").hidden=memory; $("handbar").hidden=memory;
   if(memory){ $("hand").innerHTML=""; return; }
-  const hand=drawHand();
+  const hand=drawHand(); lastHand=hand;
   $("hand").innerHTML = hand.length ? hand.map(cardHTML).join("") : `<div class="empty">No cards${S.filter!==null?" with that trait. Clear the filter.":"."}</div>`;
   $("btnShuffle").disabled = S.shuffleAt===S.path.length;
   $("btnShuffle").textContent = S.shuffleAt===S.path.length ? "Reshuffled" : "Reshuffle";
@@ -715,7 +881,24 @@ function renderHand(){
   $("btnPeek").disabled = pk===0 || S.peekAt===S.path.length || !DIST;
   $("btnPeek").innerHTML = S.peekAt===S.path.length ? "Temps shown" : `Peek temps <span class="cost">${pk} left</span>`;
   $("filterLbl").innerHTML = S.filter!==null ? `Showing: ${traitChip(S.filter)} <button id="clearFilter">clear</button>` : `<span class="small">Tap a trait above to filter the cards.</span>`;
+  coach();
 }
+let lastHand=[];
+function coach(){
+  if(mode!=="daily"&&mode!=="practice") return;
+  const el=$("coach"), left=MAX_DEG-hopsUsed(), memory=$("hardMode").checked, first=S.path.length===1;
+  $("picker").classList.toggle("fresh",first&&!S.done);
+  $("btnUndo").classList.remove("pulse");
+  let m;
+  if(left<=0){ m=`Out of hops. Tap <b>↶ Undo</b> below to step back and try another card.`; $("btnUndo").classList.add("pulse"); }
+  else if(memory) m=`Type a title that shares 2 traits with <b>${esc(label(cur()))}</b>. Typos are fine.`;
+  else if(lastHand.includes(puzzle.target)) m=`The <b>target</b> is in your hand. Play it to win!`;
+  else if(first) m=`Start here: tap a card. Each one already shares 2 traits with the start. <b>Yellow</b> traits belong to the target too.`;
+  else if(tempsVisible()&&lastHand.some(j=>tempOf(j)==="hot")) m=`<b>HOT</b> cards move you closer to the target. Tap one.`;
+  else m=`Tap the card with the most <b>yellow</b> traits. Nothing good? Reshuffle or tap a trait to filter.`;
+  el.innerHTML=`<span>${m}</span>`;
+}
+
 
 // ---- main render ----
 function render(){
@@ -755,13 +938,13 @@ function renderStrip(){
 }
 function renderPicker(){
   const memory=$("hardMode").checked, left=MAX_DEG-hopsUsed(), c=cur();
-  if(left<=0){ $("pickerQ").innerHTML="Out of hops! Undo one."; $("hand").innerHTML=""; $("search").hidden=true; $("list").innerHTML=""; return; }
-  $("search").hidden=false;
+  if(left<=0){ $("pickerQ").innerHTML="Out of hops! Undo one."; $("hand").innerHTML=""; lastHand=[]; $("searchBox").hidden=true; $("list").innerHTML=""; coach(); return; }
+  $("searchBox").hidden=false; if(memory) $("searchBox").open=true; $("searchBox").querySelector("summary").hidden=memory;
   const tgt=TSET[puzzle.target];
   $("traitsNow").innerHTML=`<span class="lbl">Here: its traits</span><span class="tchips">${TT[c][3].map(r=>traitChip(r,(tgt.has(r)?"tgt":"")+(S.filter===r?" on":""))).join("")}</span>`;
   const radar=S.radar&&S.radar.at===S.path.length?` · <b>Radar: ${S.radar.d} to go</b>`:"";
   $("pickerQ").innerHTML=(memory?`From memory: what shares 2 traits with <b>${esc(label(c))}</b>?!`:`Pick a card that shares 2 traits with <b>${esc(label(c))}</b>!`)+`<span class="line2">${left} hop${left===1?"":"s"} left!${radar}</span>`;
-  $("search").placeholder=memory?"Type any anime, game or movie (typos are OK)":"Or search every connection";
+  $("search").placeholder=memory?"Type any anime, game or movie (typos are OK)":"Search by title or trait";
   renderHand(); renderList();
 }
 let sTimer=null;
@@ -793,6 +976,7 @@ function tryHop(id){
   $("search").value=""; clearMsg();
   if(id===puzzle.target){ finish(false); return; }
   persist(); render(); shake($("chain"));
+  { const r=$("picker").getBoundingClientRect(); if(r.top<0||r.top>innerHeight*.6) $("picker").scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"}); }
   if(combo){ burst("COMBO!"); SND.combo(); } else { burst(); SND.hop(); }
   const after=DIST&&DIST[id]>=0?DIST[id]:null;
   const temp=before!==null&&after!==null&&tempsVisible()?(after<before?" Getting hotter!":after===before?" Same distance.":" Colder…"):"";
@@ -1010,8 +1194,13 @@ $("soundOn").addEventListener("change",()=>save("sd6:sound",$("soundOn").checked
 $("btnHelp").addEventListener("click",()=>{$("helpModal").hidden=false;});
 $("btnStats").addEventListener("click",()=>{renderStats();$("statsModal").hidden=false;});
 document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{ if(e.target===m||e.target.hasAttribute("data-close")) m.hidden=true; }));
-document.addEventListener("keydown",e=>{ if(e.key==="Escape") document.querySelectorAll(".modal").forEach(m=>m.hidden=true); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ document.querySelectorAll(".modal").forEach(m=>m.hidden=true); if(!$("tour").hidden){ $("tour").hidden=true; save("sd6:tour",1); } } });
 $("hardMode").checked=!!load("sd6:memory",false); $("soundOn").checked=load("sd6:sound",true)!==false;
+function showTour(){ $("tour").hidden=false; $("tourGo").focus(); }
+$("tourGo").addEventListener("click",()=>{ $("tour").hidden=true; save("sd6:tour",1); const p=$("picker"); if(!p.closest("[hidden]")) p.scrollIntoView({block:"center",behavior:"smooth"}); });
+$("btnTour").addEventListener("click",()=>{ $("settings").open=false; showTour(); });
+document.addEventListener("click",e=>{ const s=$("settings"); if(s.open&&!s.contains(e.target)) s.open=false; });
+if(!load("sd6:tour",0)) setTimeout(showTour,300);
 if(location.hash==="#detective") startDetective(false); else if(location.hash==="#bridge") startBridge(false); else startDaily();
 })();
 </script>
