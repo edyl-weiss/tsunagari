@@ -480,6 +480,36 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
 .track{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
 .tchip{max-width:100%;white-space:normal;overflow-wrap:anywhere}
 @media (max-width:640px){ .track{grid-template-columns:minmax(0,1fr)} }
+
+/* official thumbnails, pasted in like reference photos */
+.thumb{position:relative;display:block;overflow:hidden;background:var(--paper);border:2.5px solid var(--ink);flex:none}
+.thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.thumb.none{display:none;place-items:center;background:radial-gradient(rgba(17,17,17,.28) 30%,transparent 34%) 0 0/5px 5px,var(--paper)}
+.imgs-ok .thumb.none{display:grid}
+.thumb.none b{font-family:var(--brush);font-size:28px;line-height:1;background:var(--paper);padding:2px 6px}
+.refrow{display:flex;align-items:center;gap:10px;min-width:0}
+.refrow .name{min-width:0}
+.refslot:empty{display:none}
+.thumb.ref{width:62px;height:88px;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--ink)}
+.thumb.ref.wide{width:104px;height:49px}
+.thumb.ref::after{content:"";position:absolute;top:-6px;left:50%;width:30px;height:12px;transform:translateX(-50%) rotate(3deg);background:rgba(255,242,0,.75);border:1px solid rgba(17,17,17,.25)}
+.ttarget .thumb.ref{transform:rotate(2deg)}
+.thumb.ref.big{width:96px;height:136px}
+.thumb.ref.big.wide{width:184px;height:86px}
+.reveal{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.card .cardthumb{order:-2;margin:-10px -10px 2px;width:calc(100% + 20px);height:92px;border:0;border-bottom:3px solid var(--ink)}
+.card .cardthumb.wide img{object-position:center}
+.card.target .cardthumb{border-bottom-color:var(--m)}
+.card[disabled] .cardthumb img{filter:grayscale(1)}
+.cpanel .stripthumb{margin:-28px -10px 4px;width:calc(100% + 20px);height:64px;border:0;border-bottom:3px solid var(--ink)}
+.cpanel .stripthumb.wide img{object-position:center}
+.cpanel{justify-content:flex-start}
+.cpanel .cname{margin-top:auto}
+@media (max-width:560px){ .card .cardthumb{height:74px} .card .cname{margin-top:0} .thumb.ref{width:50px;height:71px} .thumb.ref.wide{width:84px;height:39px} }
+
+.track .refrow{flex-direction:column;align-items:flex-start;gap:8px}
+.track .tend .name{overflow-wrap:break-word}
+@media (max-width:640px){ .track .refrow{flex-direction:row;align-items:center} }
 </style>
 
 
@@ -538,7 +568,7 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
       <section class="track panel" aria-label="Your goal">
         <div class="tend tstart">
           <span class="lbl">START<i>起点</i></span>
-          <span class="name" id="startName"></span>
+          <div class="refrow"><span class="refslot" id="startThumb"></span><span class="name" id="startName"></span></div>
           <div class="meta" id="startMeta"></div>
         </div>
         <div class="tmid">
@@ -549,7 +579,7 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
         </div>
         <div class="tend ttarget">
           <span class="lbl">TARGET<i>終点</i></span>
-          <span class="name" id="targetName"></span>
+          <div class="refrow"><span class="refslot" id="targetThumb"></span><span class="name" id="targetName"></span></div>
           <div class="meta" id="targetMeta"></div>
           <div class="ttraits"><span class="tchips" id="targetTraits"></span></div>
         </div>
@@ -650,8 +680,8 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
         <span class="note">Score <b id="bScore">0</b></span>
       </div>
       <section class="versus bridge-ends">
-        <div class="end a"><div class="in"><span class="lbl">LEFT</span><span class="name" id="bA"></span><div class="meta" id="bAMeta"></div></div></div>
-        <div class="end b"><div class="in"><span class="lbl">RIGHT</span><span class="name" id="bB"></span><div class="meta" id="bBMeta"></div></div></div>
+        <div class="end a"><div class="in"><span class="lbl">LEFT</span><div class="refrow"><span class="refslot" id="bAThumb"></span><span class="name" id="bA"></span></div><div class="meta" id="bAMeta"></div></div></div>
+        <div class="end b"><div class="in"><span class="lbl">RIGHT</span><div class="refrow"><span class="refslot" id="bBThumb"></span><span class="name" id="bB"></span></div><div class="meta" id="bBMeta"></div></div></div>
       </section>
       <div class="panel picker">
         <div class="balloon"><span>Which title shares 2 traits with BOTH?!</span><svg class="tail" viewBox="0 0 30 22" aria-hidden="true"><polygon points="1,-8 27,-8 25,-2 6,20 3,-2" fill="#F5EEDC"/><polyline points="3,-3 6,20 25,-3" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="miter"/></svg></div>
@@ -667,7 +697,7 @@ select{font-family:var(--letter);font-weight:700;font-size:15px;border:0;border-
     </div>
   </div>
 
-  <div class="foot"><span class="colorbar" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="print" id="footer"></span><span class="print">Colour draft · C/M/Y flats · Traits from community tags, keyword connectors + hand-tagged classics</span></div>
+  <div class="foot"><span class="colorbar" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="print" id="footer"></span><span class="print">Colour draft · C/M/Y flats · Traits from community tags, keyword connectors + hand-tagged classics</span><span class="print">Artwork © its respective owners · thumbnails via MyAnimeList, Steam and IMDb</span></div>
 </div>
 <div class="sfx" id="sfx" aria-hidden="true" hidden></div>
 
@@ -724,6 +754,15 @@ const TSET=TT.map(t=>new Set(t[3]));
 const MEMBERS=TR.map(()=>[]); TT.forEach((t,i)=>t[3].forEach(r=>MEMBERS[r].push(i)));
 const MEDIA=["Anime","Game","Movie"], MCLS=["anime","game","movie"];
 const label=i=>TT[i][0], mediaOf=i=>TT[i][1], year=i=>TT[i][2];
+// official thumbnails: short codes from the build (a = MyAnimeList, s = Steam appid, i = IMDb poster id)
+function thumbURL(i){ const c=TT[i][7]||""; if(!c) return "";
+  if(c[0]==="a") return "https://cdn.myanimelist.net/images/anime/"+c.slice(1)+".jpg";
+  if(c[0]==="s") return "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/"+c.slice(1)+"/header.jpg";
+  if(c[0]==="i") return "https://m.media-amazon.com/images/M/"+c.slice(1)+"._V1_UX240_CR0,0,240,352_AL_.jpg";
+  return /^https:\/\//.test(c)?c:""; }
+function thumb(i,cls){ const u=thumbURL(i), shape=mediaOf(i)===1?"wide":"tall";
+  return u?`<span class="thumb ${cls||""} ${shape}"><img src="${esc(u)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onload="document.body.classList.add('imgs-ok')" onerror="this.parentNode.remove()"></span>`
+          :`<span class="thumb ${cls||""} ${shape} none" aria-hidden="true"><b>${esc(label(i).slice(0,1))}</b></span>`; }
 function shared(a,b){const o=[];for(const r of TT[a][3]) if(TSET[b].has(r)) o.push(r);return o;}
 const CNT=new Uint16Array(NT), TOUCH=new Int32Array(NT);
 function neighbors(i){ // titles sharing >= NEED traits with i
@@ -859,7 +898,7 @@ function cardHTML(j){
   let flag=""; if(j===puzzle.target) flag=`<span class="flag">TARGET!</span>`; else if(S.stone&&S.stone.at===S.path.length&&S.stone.id===j) flag=`<span class="flag stone">STEPPING STONE</span>`;
   let temp=""; if(tempsVisible()&&j!==puzzle.target){ const t=tempOf(j); if(t) temp=`<span class="temp ${t}"><i></i><i></i><i></i>${t==="hot"?"HOT · closer":t==="warm"?"WARM · same distance":"COLD · further"}</span>`; }
   const tgtNote=glowToTarget&&j!==puzzle.target?`<span class="small">${glowToTarget} trait${glowToTarget>1?"s":""} in common with the target</span>`:"";
-  return `<button class="card${j===puzzle.target?" target":""}" data-id="${j}">${flag}<span class="cname">${esc(label(j))}</span>${chipFor(j)}<span class="tchips">${chips}</span>${tgtNote}${temp}<span class="play">${j===puzzle.target?"Finish ▸":"Play ▸"}</span></button>`;
+  return `<button class="card${j===puzzle.target?" target":""}" data-id="${j}">${thumb(j,"cardthumb")}${flag}<span class="cname">${esc(label(j))}</span>${chipFor(j)}<span class="tchips">${chips}</span>${tgtNote}${temp}<span class="play">${j===puzzle.target?"Finish ▸":"Play ▸"}</span></button>`;
 }
 function renderHand(){
   const memory=$("hardMode").checked;
@@ -897,6 +936,7 @@ function render(){
   ["modeDaily","modePractice","modeDetective","modeBridge"].forEach(id=>$(id).setAttribute("aria-pressed",false));
   $(mode==="daily"?"modeDaily":"modePractice").setAttribute("aria-pressed",true);
   $("diffSel").hidden = mode!=="practice"; $("btnNew").hidden = mode!=="practice"; $("memWrap").hidden=false;
+  $("startThumb").innerHTML=thumb(puzzle.start,"ref"); $("targetThumb").innerHTML=thumb(puzzle.target,"ref");
   $("startName").textContent=label(puzzle.start); $("startMeta").innerHTML=chipFor(puzzle.start);
   $("targetName").textContent=label(puzzle.target); $("targetMeta").innerHTML=chipFor(puzzle.target);
   $("targetTraits").innerHTML=TT[puzzle.target][3].map(r=>traitChip(r,S.bridgeTrait===r?"lit":"")).join("");
@@ -923,9 +963,9 @@ function renderStrip(){
     const cls=j===0?"start":(won&&last?"won":(last&&!S.done?"now":""));
     let say=""; if(j>0){ const sh=shared(S.path[j-1],id); say=`<div class="say">${sh.slice(0,3).map(r=>traitChip(r)).join("")}${sh.length>3?`<span class="more">+${sh.length-3}</span>`:""}</div>`; }
     const combo=S.kinds&&S.comboAt&&S.comboAt.includes(j)?`<span class="combo-tag">COMBO!</span>`:"";
-    h+=`<div class="cpanel ${cls}"><span class="no">${j===0?"S":String(j).padStart(2,"0")}</span>${combo}${say}<span class="cname">${esc(label(id))}</span>${chipFor(id)}</div>`;
+    h+=`<div class="cpanel ${cls}"><span class="no">${j===0?"S":String(j).padStart(2,"0")}</span>${combo}${thumb(id,"stripthumb")}${say}<span class="cname">${esc(label(id))}</span>${chipFor(id)}</div>`;
   });
-  if(cur()!==puzzle.target) h+=`<div class="cpanel goal"><span class="no">T</span><span class="cname">${esc(label(puzzle.target))}</span>${chipFor(puzzle.target)}</div>`;
+  if(cur()!==puzzle.target) h+=`<div class="cpanel goal"><span class="no">T</span>${thumb(puzzle.target,"stripthumb")}<span class="cname">${esc(label(puzzle.target))}</span>${chipFor(puzzle.target)}</div>`;
   $("chain").innerHTML=h;
 }
 function renderPicker(){
@@ -1072,7 +1112,7 @@ function renderDetective(){
   $("dGuesses").innerHTML=D.guesses.map(g=>`<span class="guess">✕ ${esc(label(g.id))} · shares ${g.n}</span>`).join("");
   $("dReveal").disabled=D.done||D.shown>=D.order.length; $("dGiveUp").disabled=D.done; $("dSearch").disabled=D.done;
   $("dQ").innerHTML=D.done?(D.win?"Case closed!":"The culprit escaped…"):`Who is it?! Worth <b>${dScore()}</b> points right now.`;
-  if(D.done){ $("dResult").innerHTML=`<div class="result panel"><h2>${D.win?"CASE CLOSED!":"COLD CASE…"}</h2>${D.win?`<div class="big">${D.score}<small>PTS</small></div>`:""}<div class="sub">${esc(label(D.ans))} · ${D.shown} clue${D.shown>1?"s":""} · ${D.guesses.length} wrong guess${D.guesses.length===1?"":"es"}</div>
+  if(D.done){ $("dResult").innerHTML=`<div class="result panel"><div class="reveal">${thumb(D.ans,"ref big")}<h2>${D.win?"CASE CLOSED!":"COLD CASE…"}</h2></div>${D.win?`<div class="big">${D.score}<small>PTS</small></div>`:""}<div class="sub">${esc(label(D.ans))} · ${D.shown} clue${D.shown>1?"s":""} · ${D.guesses.length} wrong guess${D.guesses.length===1?"":"es"}</div>
     <div class="actions">${D.win?`<button class="btn primary" data-dact="share">Copy result</button>`:""}<button class="btn" data-dact="new">New case</button><button class="btn" data-dact="route">Back to Daily</button></div></div>`; }
   else $("dResult").innerHTML="";
 }
@@ -1119,11 +1159,12 @@ function renderBridge(){
   if(B.done){ $("bHand").innerHTML=""; $("bNext").hidden=true;
     $("bResult").innerHTML=`<div class="result panel"><h2>${B.score>=600?"BRIDGE MASTER!":"GOOD RUN!"}</h2><div class="big">${B.score}<small>PTS</small></div><div class="sub">${B.log.filter(x=>x).length}/5 bridges built</div><div class="actions"><button class="btn primary" data-bact="share">Copy result</button><button class="btn" data-bact="again">Play again</button></div></div>`; return; }
   $("bResult").innerHTML=""; const r=B.cur; if(!r){ $("bMsg").className="msg show bad"; $("bMsg").textContent="Couldn't build a round. Try a new game."; return; }
+  $("bAThumb").innerHTML=thumb(r.a,"ref"); $("bBThumb").innerHTML=thumb(r.b,"ref");
   $("bA").textContent=label(r.a); $("bAMeta").innerHTML=chipFor(r.a); $("bB").textContent=label(r.b); $("bBMeta").innerHTML=chipFor(r.b);
   $("bTimeFill").style.width=(r.left/30*100)+"%";
   $("bHand").innerHTML=r.opts.map(j=>{ const done=r.picked!==null, ok=r.both.has(j);
     const info=done?`<span class="tchips">${ok?shared(r.a,j).slice(0,2).concat(shared(r.b,j).slice(0,2)).map(x=>traitChip(x)).join(""):""}</span><span class="small">${ok?"Links both sides":"Links only "+(shared(r.a,j).length>=2?"the left":"the right")}</span>`:"";
-    return `<button class="card${done?(ok?" right":(r.picked===j?" wrong":"")):""}" data-bid="${j}"${done?" disabled":""}><span class="cname">${esc(label(j))}</span>${chipFor(j)}${info}</button>`; }).join("");
+    return `<button class="card${done?(ok?" right":(r.picked===j?" wrong":"")):""}" data-bid="${j}"${done?" disabled":""}>${thumb(j,"cardthumb")}<span class="cname">${esc(label(j))}</span>${chipFor(j)}${info}</button>`; }).join("");
   $("bNext").hidden=r.picked===null; $("bNext").textContent=B.round>=5?"See results":"Next round";
 }
 function bPick(j){ const r=B.cur; if(!r||r.picked!==null) return; r.picked=j; const ok=j>=0&&r.both.has(j);
